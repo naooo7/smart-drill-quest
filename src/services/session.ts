@@ -10,10 +10,10 @@ export type SessionSource = "practice" | "review" | "mistakes" | "custom" | "tod
 
 export type SessionFilters = {
   source: SessionSource;
-  exam?: string;
+  exam?: string | undefined;
   /** subtest id, e.g. "skd-tiu" */
-  subtest?: string;
-  materials?: string[];
+  subtest?: string | undefined;
+  materials?: string[] | undefined;
   count: number;
   /** "All" | "Easy" | "Medium" | "Hard" */
   difficulty: string;
@@ -26,7 +26,7 @@ function shuffle<T>(items: T[]) {
   const copy = [...items];
   for (let i = copy.length - 1; i > 0; i -= 1) {
     const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j], copy[i]];
+    [copy[i], copy[j]] = [copy[j]!, copy[i]!];
   }
   return copy;
 }

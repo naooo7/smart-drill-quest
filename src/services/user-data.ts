@@ -345,7 +345,7 @@ export function getStreak() {
   let longest = 1;
   let run = 1;
   for (let i = 1; i < activeDates.length; i += 1) {
-    const diff = (asDate(activeDates[i]).getTime() - asDate(activeDates[i - 1]).getTime()) / 86_400_000;
+    const diff = (asDate(activeDates[i]!).getTime() - asDate(activeDates[i - 1]!).getTime()) / 86_400_000;
     run = diff === 1 ? run + 1 : 1;
     longest = Math.max(longest, run);
   }
@@ -359,7 +359,7 @@ export function getStreak() {
   if (last === today || last === dateKey(yesterdayDate)) {
     current = 1;
     for (let i = activeDates.length - 1; i > 0; i -= 1) {
-      const diff = (asDate(activeDates[i]).getTime() - asDate(activeDates[i - 1]).getTime()) / 86_400_000;
+      const diff = (asDate(activeDates[i]!).getTime() - asDate(activeDates[i - 1]!).getTime()) / 86_400_000;
       if (diff === 1) current += 1;
       else break;
     }

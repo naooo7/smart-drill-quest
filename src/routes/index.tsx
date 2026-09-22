@@ -21,7 +21,7 @@ function HomePage() {
       <Surface className="relative overflow-hidden bg-foreground text-primary-foreground">
         <div className="relative z-10 flex h-full min-h-64 flex-col justify-between">
           <div><p className="text-sm font-semibold text-primary-foreground/65">TODAY'S DRILL</p><h2 className="mt-3 font-display text-3xl font-bold">15 Questions</h2><p className="mt-2 text-primary-foreground/70">Based on your weak areas</p></div>
-          <div className="mt-8 flex flex-wrap items-center justify-between gap-4"><span className="flex items-center gap-2 text-sm text-primary-foreground/75"><Clock3 className="h-4 w-4" /> ~12 min</span><Button asChild size="lg" className="bg-card text-foreground shadow-none hover:bg-card/90"><Link to="/question" search={{ source: "today", material: "tiu-4" }}>Start Drill <ArrowRight /></Link></Button></div>
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-4"><span className="flex items-center gap-2 text-sm text-primary-foreground/75"><Clock3 className="h-4 w-4" /> ~12 min</span><Button asChild size="lg" className="bg-card text-foreground shadow-none hover:bg-card/90"><Link to="/question" search={{ source: "today", material: "tiu-4", count: 10, difficulty: "All", status: "All", challenge: false }}>Start Drill <ArrowRight /></Link></Button></div>
         </div>
       </Surface>
       <Surface className="flex flex-col justify-between">
@@ -31,7 +31,7 @@ function HomePage() {
     </section>
 
     <section className="mt-5 grid gap-5 lg:grid-cols-[0.8fr_1.2fr]">
-      <Surface className="flex flex-col justify-between"><div><div className="mb-5 flex h-10 w-10 items-center justify-center rounded-xl bg-secondary text-foreground"><RotateCcw className="h-5 w-5" /></div><h2 className="font-display text-xl font-bold">Needs Review</h2><p className="mt-2 text-muted-foreground">12 questions across 4 topics</p></div><Button asChild variant="outline" className="mt-7 w-full"><Link to="/question" search={{ source: "review", material: "tiu-4" }}>Review Now</Link></Button></Surface>
+      <Surface className="flex flex-col justify-between"><div><div className="mb-5 flex h-10 w-10 items-center justify-center rounded-xl bg-secondary text-foreground"><RotateCcw className="h-5 w-5" /></div><h2 className="font-display text-xl font-bold">Needs Review</h2><p className="mt-2 text-muted-foreground">12 questions across 4 topics</p></div><Button asChild variant="outline" className="mt-7 w-full"><Link to="/question" search={{ source: "review", material: "tiu-4", count: 10, difficulty: "All", status: "All", challenge: false }}>Review Now</Link></Button></Surface>
       <Surface><div className="flex items-center justify-between"><div><p className="text-sm text-muted-foreground">This Week</p><h2 className="mt-1 font-display text-xl font-bold">Steady progress</h2></div><Target className="h-5 w-5 text-primary" /></div><div className="mt-7 grid grid-cols-3 gap-4"><Metric label="Accuracy" value="76%" /><Metric label="Questions" value="184" /><Metric label="Study time" value="5h 12m" /></div><div className="mt-5 border-t border-border pt-5"><MiniLine values={progress.weeklyAccuracy} height={70} /></div></Surface>
     </section>
   </Page>;

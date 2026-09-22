@@ -6,7 +6,7 @@ export const Route = createFileRoute("/profile")({ head: () => ({ meta: [{ title
 function ProfilePage() {
   const { preference, setPreference } = useTheme();
   const settings: Array<{ Icon: LucideIcon; label: string; value: string }> = [
-    { Icon: MoonStar, label: "Appearance", value: preference[0].toUpperCase() + preference.slice(1) },
+    { Icon: MoonStar, label: "Appearance", value: (preference[0] ?? "").toUpperCase() + preference.slice(1) },
     { Icon: Bell, label: "Notifications", value: "On" },
     { Icon: Database, label: "Data", value: "Local prototype" },
   ];

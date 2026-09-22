@@ -394,7 +394,7 @@ function ResultSummary({ results }: { results: Result[] }) {
 
       <div className="mt-6 flex flex-col gap-3 sm:flex-row">
         <Button className="flex-1" asChild>
-          <Link to="/review">Review Now</Link>
+          <Link to="/question" search={{ source: "review", count: 10, difficulty: "All", status: "All", challenge: false }}>Review Now</Link>
         </Button>
         <Button variant="outline" className="flex-1" asChild>
           <Link to="/progress">View Progress</Link>
