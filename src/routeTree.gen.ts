@@ -15,6 +15,7 @@ import { Route as LearnRouteImport } from './routes/learn'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as ProgressRouteImport } from './routes/progress'
 import { Route as QuestionRouteImport } from './routes/question'
+import { Route as LearnExamIdRouteImport } from './routes/learn.$examId'
 import { Route as MaterialMaterialIdRouteImport } from './routes/material.$materialId'
 
 const IndexRoute = IndexRouteImport.update({
@@ -47,6 +48,11 @@ const QuestionRoute = QuestionRouteImport.update({
   path: '/question',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LearnExamIdRoute = LearnExamIdRouteImport.update({
+  id: '/$examId',
+  path: '/$examId',
+  getParentRoute: () => LearnRoute,
+} as any)
 const MaterialMaterialIdRoute = MaterialMaterialIdRouteImport.update({
   id: '/material/$materialId',
   path: '/material/$materialId',
@@ -56,29 +62,32 @@ const MaterialMaterialIdRoute = MaterialMaterialIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/drill': typeof DrillRoute
-  '/learn': typeof LearnRoute
+  '/learn': typeof LearnRouteWithChildren
   '/profile': typeof ProfileRoute
   '/progress': typeof ProgressRoute
   '/question': typeof QuestionRoute
+  '/learn/$examId': typeof LearnExamIdRoute
   '/material/$materialId': typeof MaterialMaterialIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/drill': typeof DrillRoute
-  '/learn': typeof LearnRoute
+  '/learn': typeof LearnRouteWithChildren
   '/profile': typeof ProfileRoute
   '/progress': typeof ProgressRoute
   '/question': typeof QuestionRoute
+  '/learn/$examId': typeof LearnExamIdRoute
   '/material/$materialId': typeof MaterialMaterialIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/drill': typeof DrillRoute
-  '/learn': typeof LearnRoute
+  '/learn': typeof LearnRouteWithChildren
   '/profile': typeof ProfileRoute
   '/progress': typeof ProgressRoute
   '/question': typeof QuestionRoute
+  '/learn/$examId': typeof LearnExamIdRoute
   '/material/$materialId': typeof MaterialMaterialIdRoute
 }
 export interface FileRouteTypes {
@@ -90,6 +99,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/progress'
     | '/question'
+    | '/learn/$examId'
     | '/material/$materialId'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -99,6 +109,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/progress'
     | '/question'
+    | '/learn/$examId'
     | '/material/$materialId'
   id:
     | '__root__'
@@ -108,13 +119,14 @@ export interface FileRouteTypes {
     | '/profile'
     | '/progress'
     | '/question'
+    | '/learn/$examId'
     | '/material/$materialId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DrillRoute: typeof DrillRoute
-  LearnRoute: typeof LearnRoute
+  LearnRoute: typeof LearnRouteWithChildren
   ProfileRoute: typeof ProfileRoute
   ProgressRoute: typeof ProgressRoute
   QuestionRoute: typeof QuestionRoute
@@ -165,6 +177,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuestionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/learn/$examId': {
+      id: '/learn/$examId'
+      path: '/$examId'
+      fullPath: '/learn/$examId'
+      preLoaderRoute: typeof LearnExamIdRouteImport
+      parentRoute: typeof LearnRoute
+    }
     '/material/$materialId': {
       id: '/material/$materialId'
       path: '/material/$materialId'
@@ -175,10 +194,20 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface LearnRouteChildren {
+  LearnExamIdRoute: typeof LearnExamIdRoute
+}
+
+const LearnRouteChildren: LearnRouteChildren = {
+  LearnExamIdRoute: LearnExamIdRoute,
+}
+
+const LearnRouteWithChildren = LearnRoute._addFileChildren(LearnRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DrillRoute: DrillRoute,
-  LearnRoute: LearnRoute,
+  LearnRoute: LearnRouteWithChildren,
   ProfileRoute: ProfileRoute,
   ProgressRoute: ProgressRoute,
   QuestionRoute: QuestionRoute,
