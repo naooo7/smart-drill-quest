@@ -10,33 +10,102 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DrillRouteImport } from './routes/drill'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as ProgressRouteImport } from './routes/progress'
+import { Route as QuestionRouteImport } from './routes/question'
+import { Route as MaterialMaterialIdRouteImport } from './routes/material.$materialId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DrillRoute = DrillRouteImport.update({
+  id: '/drill',
+  path: '/drill',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgressRoute = ProgressRouteImport.update({
+  id: '/progress',
+  path: '/progress',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuestionRoute = QuestionRouteImport.update({
+  id: '/question',
+  path: '/question',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MaterialMaterialIdRoute = MaterialMaterialIdRouteImport.update({
+  id: '/material/$materialId',
+  path: '/material/$materialId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/drill': typeof DrillRoute
+  '/profile': typeof ProfileRoute
+  '/progress': typeof ProgressRoute
+  '/question': typeof QuestionRoute
+  '/material/$materialId': typeof MaterialMaterialIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/drill': typeof DrillRoute
+  '/profile': typeof ProfileRoute
+  '/progress': typeof ProgressRoute
+  '/question': typeof QuestionRoute
+  '/material/$materialId': typeof MaterialMaterialIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/drill': typeof DrillRoute
+  '/profile': typeof ProfileRoute
+  '/progress': typeof ProgressRoute
+  '/question': typeof QuestionRoute
+  '/material/$materialId': typeof MaterialMaterialIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/drill'
+    | '/profile'
+    | '/progress'
+    | '/question'
+    | '/material/$materialId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/drill'
+    | '/profile'
+    | '/progress'
+    | '/question'
+    | '/material/$materialId'
+  id:
+    | '__root__'
+    | '/'
+    | '/drill'
+    | '/profile'
+    | '/progress'
+    | '/question'
+    | '/material/$materialId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DrillRoute: typeof DrillRoute
+  ProfileRoute: typeof ProfileRoute
+  ProgressRoute: typeof ProgressRoute
+  QuestionRoute: typeof QuestionRoute
+  MaterialMaterialIdRoute: typeof MaterialMaterialIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +117,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/drill': {
+      id: '/drill'
+      path: '/drill'
+      fullPath: '/drill'
+      preLoaderRoute: typeof DrillRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/progress': {
+      id: '/progress'
+      path: '/progress'
+      fullPath: '/progress'
+      preLoaderRoute: typeof ProgressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/question': {
+      id: '/question'
+      path: '/question'
+      fullPath: '/question'
+      preLoaderRoute: typeof QuestionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/material/$materialId': {
+      id: '/material/$materialId'
+      path: '/material/$materialId'
+      fullPath: '/material/$materialId'
+      preLoaderRoute: typeof MaterialMaterialIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DrillRoute: DrillRoute,
+  ProfileRoute: ProfileRoute,
+  ProgressRoute: ProgressRoute,
+  QuestionRoute: QuestionRoute,
+  MaterialMaterialIdRoute: MaterialMaterialIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
