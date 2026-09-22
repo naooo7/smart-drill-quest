@@ -51,7 +51,7 @@ function MaterialPage() {
       <PageTitle
         eyebrow={`${material.examId.toUpperCase()} · ${subtest?.name ?? ""}`}
         title={material.name}
-        back="/learn/$examId/$subtestId"
+        back={subtest ? `/learn/${material.examId}/${subtest.code}` : "/learn"}
       />
       <Surface>
         <div className="grid grid-cols-3 gap-5 border-b border-border pb-6">
