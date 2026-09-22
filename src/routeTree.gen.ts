@@ -17,6 +17,7 @@ import { Route as ProgressRouteImport } from './routes/progress'
 import { Route as QuestionRouteImport } from './routes/question'
 import { Route as LearnExamIdRouteImport } from './routes/learn.$examId'
 import { Route as MaterialMaterialIdRouteImport } from './routes/material.$materialId'
+import { Route as LearnExamIdSubtestIdRouteImport } from './routes/learn.$examId.$subtestId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -58,6 +59,11 @@ const MaterialMaterialIdRoute = MaterialMaterialIdRouteImport.update({
   path: '/material/$materialId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LearnExamIdSubtestIdRoute = LearnExamIdSubtestIdRouteImport.update({
+  id: '/$subtestId',
+  path: '/$subtestId',
+  getParentRoute: () => LearnExamIdRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -66,8 +72,9 @@ export interface FileRoutesByFullPath {
   '/profile': typeof ProfileRoute
   '/progress': typeof ProgressRoute
   '/question': typeof QuestionRoute
-  '/learn/$examId': typeof LearnExamIdRoute
+  '/learn/$examId': typeof LearnExamIdRouteWithChildren
   '/material/$materialId': typeof MaterialMaterialIdRoute
+  '/learn/$examId/$subtestId': typeof LearnExamIdSubtestIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -76,8 +83,9 @@ export interface FileRoutesByTo {
   '/profile': typeof ProfileRoute
   '/progress': typeof ProgressRoute
   '/question': typeof QuestionRoute
-  '/learn/$examId': typeof LearnExamIdRoute
+  '/learn/$examId': typeof LearnExamIdRouteWithChildren
   '/material/$materialId': typeof MaterialMaterialIdRoute
+  '/learn/$examId/$subtestId': typeof LearnExamIdSubtestIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -87,8 +95,9 @@ export interface FileRoutesById {
   '/profile': typeof ProfileRoute
   '/progress': typeof ProgressRoute
   '/question': typeof QuestionRoute
-  '/learn/$examId': typeof LearnExamIdRoute
+  '/learn/$examId': typeof LearnExamIdRouteWithChildren
   '/material/$materialId': typeof MaterialMaterialIdRoute
+  '/learn/$examId/$subtestId': typeof LearnExamIdSubtestIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +110,7 @@ export interface FileRouteTypes {
     | '/question'
     | '/learn/$examId'
     | '/material/$materialId'
+    | '/learn/$examId/$subtestId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/question'
     | '/learn/$examId'
     | '/material/$materialId'
+    | '/learn/$examId/$subtestId'
   id:
     | '__root__'
     | '/'
@@ -121,6 +132,7 @@ export interface FileRouteTypes {
     | '/question'
     | '/learn/$examId'
     | '/material/$materialId'
+    | '/learn/$examId/$subtestId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -191,15 +203,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MaterialMaterialIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/learn/$examId/$subtestId': {
+      id: '/learn/$examId/$subtestId'
+      path: '/$subtestId'
+      fullPath: '/learn/$examId/$subtestId'
+      preLoaderRoute: typeof LearnExamIdSubtestIdRouteImport
+      parentRoute: typeof LearnExamIdRoute
+    }
   }
 }
 
+interface LearnExamIdRouteChildren {
+  LearnExamIdSubtestIdRoute: typeof LearnExamIdSubtestIdRoute
+}
+
+const LearnExamIdRouteChildren: LearnExamIdRouteChildren = {
+  LearnExamIdSubtestIdRoute: LearnExamIdSubtestIdRoute,
+}
+
+const LearnExamIdRouteWithChildren = LearnExamIdRoute._addFileChildren(
+  LearnExamIdRouteChildren,
+)
+
 interface LearnRouteChildren {
-  LearnExamIdRoute: typeof LearnExamIdRoute
+  LearnExamIdRoute: typeof LearnExamIdRouteWithChildren
 }
 
 const LearnRouteChildren: LearnRouteChildren = {
-  LearnExamIdRoute: LearnExamIdRoute,
+  LearnExamIdRoute: LearnExamIdRouteWithChildren,
 }
 
 const LearnRouteWithChildren = LearnRoute._addFileChildren(LearnRouteChildren)
