@@ -10,10 +10,10 @@ export type SessionSource = "practice" | "review" | "mistakes" | "custom" | "tod
 
 export type SessionFilters = {
   source: SessionSource;
-  exam?: string;
+  exam?: string | undefined;
   /** subtest id, e.g. "skd-tiu" */
-  subtest?: string;
-  materials?: string[];
+  subtest?: string | undefined;
+  materials?: string[] | undefined;
   count: number;
   /** "All" | "Easy" | "Medium" | "Hard" */
   difficulty: string;
